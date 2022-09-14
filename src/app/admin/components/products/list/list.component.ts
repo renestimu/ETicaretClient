@@ -8,6 +8,8 @@ import { Product } from 'src/app/contracts/product';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
+declare var $ :any
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -20,7 +22,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createDate', 'updateDate'];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createDate', 'updateDate',"edit","delete"];
 
   dataSource: MatTableDataSource<List_Product> = null
   async ngOnInit() {
@@ -32,14 +34,22 @@ export class ListComponent extends BaseComponent implements OnInit {
     const allProducts: {totalCount:number,products: List_Product[]} = await this.productService.readList(this.paginator?this.paginator.pageIndex:0,
       this.paginator?this.paginator.pageSize:5,
       () => { this.hideSpinner(SpinnerType.BallAtom); },
-      errorMessage => { this.alertify.message(errorMessage, { dismissOthers: true, messageType: MessageType.Error, position: Position.TopRight }) })
+      errorMessage => {
+        this.hideSpinner(SpinnerType.BallAtom)
+        this.alertify.message(errorMessage, { dismissOthers: true, messageType: MessageType.Error, position: Position.TopRight })
+      })
     this.dataSource = new MatTableDataSource<List_Product>(allProducts.products)
     this.paginator.length=allProducts.totalCount;
    // this.dataSource.paginator=this.paginator;
 
   }
-async pageChanged(){
+  async pageChanged(){
     await this.getProducts();
   }
 
+  // delete(id:string,event){
+
+  //   const img:HTMLImageElement=event.srcElement;
+  //   $(img.parentElement.parentElement).fadeOut(1000);
+  // }
 }
