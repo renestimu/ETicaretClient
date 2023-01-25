@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogPosition, MatDialog } from '@angular/material/dialog';
+import { LegacyDialogPosition as DialogPosition, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ComponentType } from 'ngx-toastr';
 
 @Injectable({
