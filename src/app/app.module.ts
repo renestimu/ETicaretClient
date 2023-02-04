@@ -7,15 +7,19 @@ import { AppComponent } from './app.component';
 import { UiModule } from './ui/ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { LoginComponent } from './ui/components/login/login.component';
+import { GoogleLoginProvider,SocialLoginModule,SocialAuthServiceConfig, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { environment } from 'src/environments/environment';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
-
+    AppComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -31,10 +35,28 @@ import { JwtModule } from '@auth0/angular-jwt';
         tokenGetter:()=>localStorage.getItem("accessToken"),
         allowedDomains:["localhost:7131"]
       }
-    })
-  ],
+    }),
+    SocialLoginModule
+    ],
   providers: [
-    {    provide:'baseUrl',useValue:"https://localhost:7132/api",multi:true}
+    {    provide:'baseUrl',useValue:"https://localhost:7132/api",multi:true},
+    {
+      provide:"SocialAuthServiceConfig",
+      useValue:{
+        autoLogin:false,
+       providers:[
+        {
+          id:GoogleLoginProvider.PROVIDER_ID,
+          provider:new GoogleLoginProvider(environment.googleKey)
+        },
+        {
+          id:FacebookLoginProvider.PROVIDER_ID,
+          provider:new FacebookLoginProvider(environment.facebookKey)
+        },
+      ],
+        onError:err=>console.log(err)
+      }as SocialAuthServiceConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

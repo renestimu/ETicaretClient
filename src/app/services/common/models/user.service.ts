@@ -1,4 +1,5 @@
 
+import { SocialUser } from '@abacritt/angularx-social-login/public-api';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, observable, Observable } from 'rxjs';
 import { Token } from 'src/app/contracts/token/token';
@@ -21,23 +22,6 @@ export class UserService {
     }, user);
 
     return await firstValueFrom(observable) as Create_User;
-  }
-  async login(usernameOrEmail:string,password:string,callBackFunction?:()=>void):Promise<void>{
-  const observable:Observable<any | Token> = this.httpClient.post<any | Token>({
-      controller:"users",
-      action:"login"
-    },{usernameOrEmail,password})
-    const token:TokenResponse= await firstValueFrom(observable) as TokenResponse;
-
-    if(token){
-      localStorage.setItem("accessToken",token.token.accessToken);
-
-      this.toasterService.message("Kullanici girişi başarı ile tamamlanmıştır.","Giriş Başarılı",{
-        messageType:ToastrMessageType.Success,
-        position:ToastrPosition.TopRight
-      })
-    }
-    callBackFunction();
   }
 
 }
