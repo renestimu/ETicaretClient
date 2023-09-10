@@ -22,6 +22,7 @@ export class UserAuthService {
 
       if(token){
         localStorage.setItem("accessToken",token.token.accessToken);
+        localStorage.setItem("refreshToken",token.token.refreshToken);
 
         this.toasterService.message("Kullanici girişi başarı ile tamamlanmıştır.","Giriş Başarılı",{
           messageType:ToastrMessageType.Success,
@@ -39,7 +40,7 @@ export class UserAuthService {
 
       if(token){
         localStorage.setItem("accessToken",token.token.accessToken);
-
+        localStorage.setItem("refreshToken",token.token.refreshToken);
         this.toasterService.message("Google girişi başarı ile tamamlanmıştır.","Giriş Başarılı",{
           messageType:ToastrMessageType.Success,
           position:ToastrPosition.TopRight
@@ -56,12 +57,25 @@ export class UserAuthService {
       const token:TokenResponse= await firstValueFrom(observable) as TokenResponse;
       if(token){
         localStorage.setItem("accessToken",token.token.accessToken);
-
+        localStorage.setItem("refreshToken",token.token.refreshToken);
         this.toasterService.message("Facebook girişi başarı ile tamamlanmıştır.","Giriş Başarılı",{
           messageType:ToastrMessageType.Success,
           position:ToastrPosition.TopRight
         })
       }
       callBackFunction();
+    }
+    async refreshTokenLogin(refreshToken:string,callBackFunction?:()=>void):Promise<any>{
+      const observable:Observable<any | TokenResponse>= this.httpClient.post<any | TokenResponse>({
+        action:"refreshtokenlogi",
+        controller:"auth"
+      },{refreshToken:refreshToken});
+      const tokenResponse:TokenResponse= await firstValueFrom(observable) as TokenResponse;
+      if(tokenResponse){
+        localStorage.setItem("accessToken",tokenResponse.token.accessToken);
+        localStorage.setItem("refreshToken",tokenResponse.token.refreshToken);
+
+
+      }
     }
 }
