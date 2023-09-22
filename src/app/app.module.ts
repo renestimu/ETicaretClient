@@ -33,7 +33,7 @@ import { environment } from 'src/environments/environment';
     JwtModule.forRoot({
       config:{
         tokenGetter:()=>localStorage.getItem("accessToken"),
-        allowedDomains:["localhost:7131"]
+        allowedDomains:["localhost:7132"]
       }
     }),
     SocialLoginModule

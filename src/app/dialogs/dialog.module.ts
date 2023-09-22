@@ -21,6 +21,7 @@ import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-car
     MatButtonModule,
     FileUploadModule,
     MatCardModule
+
   ]
 })
 export class DialogModule { }
