@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Output } from '@angular/core';
-import { MatLegacyCard as MatCard } from '@angular/material/legacy-card';
-import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MatCard } from '@angular/material/card';
+import { MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerType } from 'src/app/base/base.component';
 import { List_Product_Image } from 'src/app/contracts/list_product_image';
