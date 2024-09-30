@@ -45,4 +45,5 @@ export class BasketsComponent extends BaseComponent implements OnInit {
 
     $('.'+basketItemId).fadeOut(500,()=> this.hideSpinner(SpinnerType.BallAtom));
   }
+
 }
