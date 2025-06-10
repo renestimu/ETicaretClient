@@ -5,7 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Order } from 'src/app/contracts/order/list_order';
+import { OrderDetailDialogComponent } from 'src/app/dialogs/order-detail-dialog/order-detail-dialog.component';
 import { AlertifyService, Position,MessageType } from 'src/app/services/admin/alertify.service';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { OrderService } from 'src/app/services/common/models/order.service';
 
 
@@ -15,12 +17,12 @@ import { OrderService } from 'src/app/services/common/models/order.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent extends BaseComponent implements OnInit {
- constructor(spinner: NgxSpinnerService, private orderService: OrderService, private alertify: AlertifyService) {
+ constructor(spinner: NgxSpinnerService, private orderService: OrderService, private alertify: AlertifyService, private dialogService: DialogService) {
     super(spinner)
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['orderCode', 'userName', 'totalPrice', 'createDate', "delete"];
+  displayedColumns: string[] = ['orderCode', 'userName', 'totalPrice', 'createDate', "viewDetail","delete"];
 
   dataSource: MatTableDataSource<List_Order> = null
   async ngOnInit() {
@@ -44,7 +46,16 @@ export class ListComponent extends BaseComponent implements OnInit {
   async pageChanged(){
     await this.getOrders();
   }
+  showDetail(id:string){
+    this.dialogService.openDialog({
+      componetType: OrderDetailDialogComponent,
+      data:id,
+      options: {
+        width: "750px",
+      }
 
+      });
+    }
   // delete(id:string,event){
 
   //   const img:HTMLImageElement=event.srcElement;

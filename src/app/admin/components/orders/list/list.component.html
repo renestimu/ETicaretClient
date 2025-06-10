@@ -19,6 +19,11 @@
       <th mat-header-cell *matHeaderCellDef>Created Date</th>
       <td mat-cell *matCellDef="let element">{{ element.createDate }}</td>
     </ng-container>
+     <ng-container matColumnDef="viewDetail">
+      <th mat-header-cell *matHeaderCellDef width="30"></th>
+      <td mat-cell *matCellDef="let element"><img (click)="showDetail(element.id)" src="../../../../../assets/detailicon.png" width="25" height="25" style="cursor: pointer;"></td>
+    </ng-container>
+
     <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef width="30"></th>
       <td  mat-cell *matCellDef="let element" appDelete [id]="element.id" controller="orders" (callback)="getOrders()">
