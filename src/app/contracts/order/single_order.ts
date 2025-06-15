@@ -5,4 +5,5 @@ export class SingleOrder {
   basketItems:any[];
   address: string;
   description: string;
+  completed:boolean;
 }
