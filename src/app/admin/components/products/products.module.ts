@@ -26,10 +26,10 @@ import { DeleteDirectiveModule } from 'src/app/directives/admin/delete.directive
   ],
   imports: [
     CommonModule,
-    MatSidenavModule,
     RouterModule.forChild([
       { path: "", component: ProductsComponent }
     ]),
+     MatSidenavModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
