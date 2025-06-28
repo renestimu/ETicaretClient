@@ -32,18 +32,19 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
           name: a.definition,
           code: a.code,
           actions: [],
+          menuName: m.name,
         })),
       };
       return menu;
     });
   }
 
-  assignRole(code: string,name:string) {
+  assignRole(code: string,name:string,menuName: string) {
     // Implement the logic to assign a role to the menu item
     console.log(`Assigning role for code: ${code}`);
     this.dialogService.openDialog({
       componetType: AuthorizeMenuDialogComponent,
-      data: { code, name },
+      data: { code, name, menuName },
       options: {
         width: '750px',
       },
@@ -57,6 +58,7 @@ export class AuthorizeMenuComponent extends BaseComponent implements OnInit {
       name: menu.name,
       level: level,
       code: menu.code,
+      menuName: menu.menuName,
     };
   };
 
@@ -84,4 +86,5 @@ interface ITreeMenu {
   name: string;
   actions: ITreeMenu[];
   code?: string;
+  menuName?: string;
 }
