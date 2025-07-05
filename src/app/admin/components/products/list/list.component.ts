@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
 import { List_Product } from 'src/app/contracts/listProduct';
 import { Product } from 'src/app/contracts/product';
+import { QrcodeDialogComponent } from 'src/app/dialogs/qrcode-dialog/qrcode-dialog.component';
 import { SelectProductImageDialogComponent } from 'src/app/dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { AlertifyService, MessageType, Position } from 'src/app/services/admin/alertify.service';
 import { DialogService } from 'src/app/services/common/dialog.service';
@@ -24,7 +25,7 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  displayedColumns: string[] = ['name', 'stock', 'price', 'createDate', 'updateDate',"photos","edit","delete"];
+  displayedColumns: string[] = ['name', 'stock', 'price', 'createDate', 'updateDate',"photos","qrcode","edit","delete"];
 
   dataSource: MatTableDataSource<List_Product> = null
   async ngOnInit() {
@@ -48,6 +49,15 @@ export class ListComponent extends BaseComponent implements OnInit {
   async pageChanged(){
     await this.getProducts();
   }
+openQrCodeDialog(id:string){
+    this.dialogService.openDialog({
+      componetType: QrcodeDialogComponent,
+      data: id,
+
+      afterClosed: () => {}
+    });
+  }
+
 
   // delete(id:string,event){
 

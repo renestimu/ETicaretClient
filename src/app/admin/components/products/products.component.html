@@ -1,3 +1,6 @@
+<button mat-raised-button color="primary" class="btn" style="margin: 15px;" (click)="openQrCodeDialog()">Product QRCode Reading</button>
+
+
 <mat-drawer-container class="product-container">
   <mat-drawer mode="side" opened class="product-left"><app-create (createdProduct)="createdProduct($event)"></app-create></mat-drawer>
   <mat-drawer-content><app-list></app-list> </mat-drawer-content>
